@@ -1,0 +1,51 @@
+Crie um VPC
+Crie um VPC do zero (sem usar o VPC Wizard).
+Defina o VPC CIDR como 172.16.0.0/16.
+Crie uma sub-rede pública e privada em diferentes zonas de disponibilidade
+Crie uma sub-rede pública e privada em diferentes zonas de disponibilidade usando os seguintes endereços IP CIDR:
+  Sub-rede Public1 em us-east-1a: 172.16.1.0/24
+  Sub-rede Private1 em us-east-1b: 172.16.2.0/24
+
+Crie duas listas de controle de acesso à rede (NACLs) e associe cada uma à sub-rede adequada
+Crie um NACL público com regras de entrada que permitem o tráfego HTTP e SSH, bem como uma regra de saída que permite o tráfego no intervalo de portas 1024-65535.
+Associe o NACL público à sub-rede pública.
+
+Crie um internet gateway e conecte-o ao VPC.
+
+Crie um NACL privado com uma regra de entrada que permite o tráfego SSH com uma origem de 172.16.1.0/24, bem como uma regra de saída que permite o tráfego no intervalo de portas 1024-65535.
+Associe o NACL privado à sub-rede privada.
+
+Crie um NAT gateway e conecte-o a VPC publica e com um EIP.
+
+Crie duas tabelas de rota e associe-as à sub-rede correta
+Crie duas tabelas de rota:
+  Um para a sub-rede pública com uma rota de internet gateway
+  Para a tabela de rota pública, crie uma rota padrão para a Internet usando a notação CIDR 0.0.0.0/0
+  
+  Um para a sub-rede privada com uma rota de NAT gateway
+  Para a tabela de rota privada, crie uma rota padrão para a Internet usando a notação CIDR 0.0.0.0/0
+
+Crie uma EC2 e a coleque na sub-rede pública
+
+Após ir até o serviço EC2, acesse no menu ao lado Security Groups. Caso tenha muitos SG criados previamente, execute uma limpeza deletando os que não estão sendo utilizados. Caso algum esteja, irá receber um warning sobre isso. 
+Crie um novo security group (exemplo de nome: WebServer) e modifique o security group para permitir o acesso a HTTP e SSH. 
+
+Description: SSH and HTTP access to Web ServerVPN: defaultInbound nas portas SSH e HTTP para Any; Outbound mantendo Any/Any. 
+
+Execute um servidor web AMI Linux2. 
+Aplique a security group criada no passo anterior na nova instância. 
+Subir HTTTd com Apache, não esqueça do sudo
+yum update
+yum install httpd –y
+cd /var/www/html
+nano index.html
+<html><h1>Olá FIAP</h1></html>
+service httpd start
+chkconfig on
+
+Acesse o servidor IP pelo DNS host ou IP e valide que foi possível visualizar a página index.html criada;
+Remova a regra de inbound HTTP no Security Group e teste novamente; Retorne a regra após o teste;
+Remova a regra de outbound no Security Group e teste novamente; Retorne a regra após o teste;
+
+Desafio: Crie uma EC2 na subnet privada e tente acessa-la !
+
