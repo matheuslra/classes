@@ -1,0 +1,40 @@
+Crie um VPC
+Crie um VPC do zero (sem usar o VPC Wizard).
+Defina o VPC CIDR como 172.16.0.0/16.
+Crie uma sub-rede pública e privada em diferentes zonas de disponibilidade
+Crie uma sub-rede pública e privada em diferentes zonas de disponibilidade usando os seguintes endereços IP CIDR:
+  Sub-rede Public1 em us-east-1a: 172.16.1.0/24
+  Sub-rede Private1 em us-east-1b: 172.16.2.0/24
+
+Crie uma EC2 e a coleque na sub-rede pública
+
+Defina o VPC CIDR como 10.0.0.0/16.
+Crie uma sub-rede pública e privada em diferentes zonas de disponibilidade
+Crie uma sub-rede pública e privada em diferentes zonas de disponibilidade usando os seguintes endereços IP CIDR:
+Use AZ diferentes das que voces para a VPC anterior
+  Sub-rede Public1 em us-east-1a: 10.0.10.0/24
+  Sub-rede Private1 em us-east-1b: 10.0.20.0/24
+
+Crie uma EC2 e a coleque na sub-rede pública
+
+Após ir até o serviço EC2, acesse no menu ao lado Security Groups. Caso tenha muitos SG criados previamente, execute uma limpeza deletando os que não estão sendo utilizados. Caso algum esteja, irá receber um warning sobre isso. 
+Crie um novo security group (exemplo de nome: WebServer) e modifique o security group para permitir o acesso a ICMP e SSH. 
+Description: SSH and HTTP access to Web ServerVPN: defaultInbound nas portas SSH e HTTP para Any; Outbound mantendo Any/Any. 
+
+Tente comunicar com a EC2 da VPC anterior
+
+Vá em VPC, e crie um VPC peering em "Peering Connections"
+De um nome para a conexão.
+- VPC (Requester): 172.16.0.0/16
+- VPC (Accepter): 10.0.0.0/16
+
+Criei e a conexao, depois clique em "Actions-> Accept Request"
+
+Vá em Route Table e modifique para o CIDR block para cada umas das VPCs e suas respectivas Route Tables, tendo como Target o Peering que foi criado.
+
+Depois conectar em uma das EC2, e enviar pacotes ICMP(ping) entre elas.
+
+Obs:
+Se não conseguiu enviar os pacotes, verifique seu Securitu Groups e se há rota nas duas Route Tables.
+
+
