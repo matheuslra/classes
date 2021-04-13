@@ -15,19 +15,17 @@ Crie um internet gateway e conecte-o ao VPC.
 Crie um NACL privado com uma regra de entrada que permite o tráfego SSH com uma origem de 172.16.1.0/24, bem como uma regra de saída que permite o tráfego no intervalo de portas 1024-65535.
 Associe o NACL privado à sub-rede privada.
 
-Crie um NAT gateway e conecte-o a VPC publica e com um EIP.
-
 Crie duas tabelas de rota e associe-as à sub-rede correta
 Crie duas tabelas de rota:
   Um para a sub-rede pública com uma rota de internet gateway
   Para a tabela de rota pública, crie uma rota padrão para a Internet usando a notação CIDR 0.0.0.0/0
   
-  Um para a sub-rede privada com uma rota de NAT gateway
-  Para a tabela de rota privada, crie uma rota padrão para a Internet usando a notação CIDR 0.0.0.0/0
-
+  Um para a sub-rede privada deixe como default.
+  
 Crie uma EC2 e a coleque na sub-rede pública
 
-Após ir até o serviço EC2, acesse no menu ao lado Security Groups. Caso tenha muitos SG criados previamente, execute uma limpeza deletando os que não estão sendo utilizados. Caso algum esteja, irá receber um warning sobre isso. 
+Após ir até o serviço EC2, acesse no menu ao lado Security Groups. 
+Caso tenha muitos SG criados previamente, execute uma limpeza deletando os que não estão sendo utilizados. Caso algum esteja, irá receber um warning sobre isso. 
 Crie um novo security group (exemplo de nome: WebServer) e modifique o security group para permitir o acesso a HTTP e SSH. 
 
 Description: SSH and HTTP access to Web ServerVPN: defaultInbound nas portas SSH e HTTP para Any; Outbound mantendo Any/Any. 
@@ -35,6 +33,7 @@ Description: SSH and HTTP access to Web ServerVPN: defaultInbound nas portas S
 Execute um servidor web AMI Linux2. 
 Aplique a security group criada no passo anterior na nova instância. 
 Subir HTTTd com Apache, não esqueça do sudo
+
 yum update
 yum install httpd –y
 cd /var/www/html
