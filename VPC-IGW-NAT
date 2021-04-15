@@ -3,7 +3,7 @@ Crie um VPC do zero (sem usar o VPC Wizard).
 Defina o VPC CIDR como 172.16.0.0/16.
 Crie uma sub-rede pública e privada em diferentes zonas de disponibilidade
 Crie uma sub-rede pública e privada em diferentes zonas de disponibilidade usando os seguintes endereços IP CIDR:
-  Sub-rede Public1 em us-east-1a: 172.16.1.0/24
+  Sub-rede Public1 em us-east-1a: 172.16.1.0/24 - nao esqueça de habilitar o auto-assign IPv4
   Sub-rede Private1 em us-east-1b: 172.16.2.0/24
 
 Crie duas listas de controle de acesso à rede (NACLs) e associe cada uma à sub-rede adequada
