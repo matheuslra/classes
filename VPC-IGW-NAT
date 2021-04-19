@@ -6,10 +6,6 @@ Crie uma sub-rede pública e privada em diferentes zonas de disponibilidade usan
   Sub-rede Public1 em us-east-1a: 172.16.1.0/24 - nao esqueça de habilitar o auto-assign IPv4
   Sub-rede Private1 em us-east-1b: 172.16.2.0/24
 
-Crie duas listas de controle de acesso à rede (NACLs) e associe cada uma à sub-rede adequada
-Crie um NACL público com regras de entrada que permitem o tráfego HTTP e SSH, bem como uma regra de saída que permite o tráfego no intervalo de portas 1024-65535.
-Associe o NACL público à sub-rede pública.
-
 Crie um internet gateway e conecte-o ao VPC.
 
 Crie um NACL privado com uma regra de entrada que permite o tráfego SSH com uma origem de 172.16.1.0/24, bem como uma regra de saída que permite o tráfego no intervalo de portas 1024-65535.
@@ -37,7 +33,7 @@ Subir HTTTd com Apache, não esqueça do sudo
 yum update
 yum install httpd –y
 cd /var/www/html
-nano index.html
+echo index.html
 <html><h1>Olá FIAP</h1></html>
 service httpd start
 chkconfig on
